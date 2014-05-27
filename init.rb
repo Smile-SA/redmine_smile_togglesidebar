@@ -11,7 +11,7 @@ Redmine::Plugin.register :redmine_smile_togglesidebar do
   author_url 'mailto:Jerome BATAILLE <redmine@smile.fr>?subject=redmine_smile_togglesidebar'
   description 'Adds a button to hide the right sidebar'
   url 'https://github.com/Smile-SA/redmine_smile_togglesidebar'
-  version '1.0.1'
+  version '1.0.2'
   requires_redmine :version_or_higher => '1.2.1'
 
   #Plugin home page
