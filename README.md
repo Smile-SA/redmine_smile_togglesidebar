@@ -7,14 +7,16 @@ Redmine plugin that adds a button to hide the right sidebar
 
 It stores a session cookie for each controller and action, to memorize the state of the sidebar
 
-# To enable the + / - button, edit the file app/views/layouts/base.html.erb (or base.rhtml for older versions)
+# To enable the + / - button
 
-## 1) Replace this line :
+Edit the file **app/views/layouts/base.html.erb** (or **base.rhtml** for older versions)
+
+## 1) Replace this line
 ```erb
 <div id="main" class="<%= sidebar_content? ? '' : 'nosidebar' %>">
 ```
 
-With :
+_With :_
 ```erb
 <%
   show_sidebar = sidebar_content?
@@ -27,13 +29,13 @@ With :
 <div id="main" class="<%= (show_sidebar ? '' : 'nosidebar') %>">
 ```
 
-## 2) After the following line :
+## 2) After the following line
 ```erb
 <pre>
   <div id="content"> 
 ```
 
-Add this piece of code :
+_Add this piece of code :_
 ```erb
 <% if has_content?(:sidebar) && self.respond_to?('button_toggle_sidebar') -%>
     <div id="toggle-sidebar" style="float: right; position: relative; margin-left: 4px">
@@ -41,3 +43,5 @@ Add this piece of code :
   </div>
 <% end -%>
 ```
+
+Enjoy !
