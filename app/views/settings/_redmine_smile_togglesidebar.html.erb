@@ -16,7 +16,7 @@ With :<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;show_sidebar &&= session_show_sidebar<br/>
 &nbsp;&nbsp;end<br/>
 %&gt;<br/>
-&lt;%= tag('div', {:id =&gt; 'main', :class =&gt; (show_sidebar ? '' : 'nosidebar')}, true) %&gt;<br/>
+&lt;div id="main" class="&lt;%= (show_sidebar ? '' : 'nosidebar') %&gt;"><br/>
 </b>
 <br/>
 
@@ -24,7 +24,7 @@ With :<br/>
 &nbsp;&nbsp;<b>&lt;div id="content"&gt;</b>
 <br/>
 <br/>
-Add this peace of code :<br/>
+Add this piece of code :<br/>
 <b>
 &lt;% if has_content?(:sidebar) && self.respond_to?('button_toggle_sidebar') -%&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;div id="toggle-sidebar" style="float: right; position: relative; margin-left: 4px"&gt;<br/>
