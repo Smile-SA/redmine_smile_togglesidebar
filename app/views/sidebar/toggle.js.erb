@@ -1,0 +1,24 @@
+<%
+  toggle_controller_name = params['original_controller']
+  toggle_action_name = params['original_action']
+  show_sidebar = session[ session_name_show_sidebar(toggle_controller_name, toggle_action_name) ]
+-%>
+show_sidebar=<%= (show_sidebar.nil? || show_sidebar) %>;
+
+if (show_sidebar) {
+<% if Rails::VERSION::MAJOR < 3 %>
+  $('main').removeClassName('nosidebar');
+  $('sidebar_view').src='<%= image_toggle_sidebar(true) %>';
+<% else %>
+  $('#main').removeClass('nosidebar');
+  $('#sidebar_view').attr('src', '<%= image_toggle_sidebar(true) %>');
+<% end %>
+} else {
+<% if Rails::VERSION::MAJOR < 3 %>
+  $('main').addClassName('nosidebar');
+  $('sidebar_view').src='<%= image_toggle_sidebar(false) %>';
+<% else %>
+  $('#main').addClass('nosidebar');
+  $('#sidebar_view').attr('src', '<%= image_toggle_sidebar(false) %>');
+<% end %>
+}

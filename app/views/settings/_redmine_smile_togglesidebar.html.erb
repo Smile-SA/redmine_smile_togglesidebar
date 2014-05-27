@@ -1,0 +1,34 @@
+<h3>This is the configuration page for the Redmine Smile Toogle Sidebar plugin</h3>
+
+- To enable the  + / - button, edit the file <b>app/views/layouts/base.html.erb</b> (or base.rhtml for older versions)<br/>
+<br/>
+
+1) Replace this line :<br/>
+<b>&lt;div id="main" class="&lt;%= sidebar_content? ? '' : 'nosidebar' %&gt;"&gt;</b><br/>
+<br/>
+With :<br/>
+<b>
+&lt;%<br/>
+&nbsp;&nbsp;show_sidebar = sidebar_content?<br/>
+&nbsp;&nbsp;if self.respond_to?('session_name_show_sidebar')<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;session_show_sidebar = session[session_name_show_sidebar(controller_name, action_name)]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;session_show_sidebar = true if session_show_sidebar.nil?<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;show_sidebar &&= session_show_sidebar<br/>
+&nbsp;&nbsp;end<br/>
+%&gt;<br/>
+&lt;%= tag('div', {:id =&gt; 'main', :class =&gt; (show_sidebar ? '' : 'nosidebar')}, true) %&gt;<br/>
+</b>
+<br/>
+
+2) After the following line :<br/>
+&nbsp;&nbsp;<b>&lt;div id="content"&gt;</b>
+<br/>
+<br/>
+Add this peace of code :<br/>
+<b>
+&lt;% if has_content?(:sidebar) && self.respond_to?('button_toggle_sidebar') -%&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div id="toggle-sidebar" style="float: right; position: relative; margin-left: 4px"&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;%= button_toggle_sidebar(false, false, false) %&gt;<br/>
+&nbsp;&nbsp;&lt;/div&gt;<br/>
+&lt;% end -%&gt;<br/>
+</b>
