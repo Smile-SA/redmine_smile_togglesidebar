@@ -5,17 +5,19 @@ require 'redmine'
 Rails.logger.info 'Starting Redmine Smile Hide Sidebar plugin for RedMine'
 
 
-Redmine::Plugin.register :redmine_smile_togglesidebar do
-  name 'Redmine - Smile - Hide Sidebar Button'
+plugin_name = 'redmine_smile_togglesidebar'
+
+Redmine::Plugin.register plugin_name.to_sym do
+  name 'Redmine - Smile - Hide / Show Sidebar Button'
   author 'Jérôme BATAILLE'
-  author_url 'mailto:Jerome BATAILLE <redmine@smile.fr>?subject=redmine_smile_togglesidebar'
-  description 'Adds a button to hide the right sidebar'
-  url 'https://github.com/Smile-SA/redmine_smile_togglesidebar'
-  version '1.0.2'
+  author_url 'mailto:Jerome BATAILLE <redmine-support@smile.fr>?subject=' + plugin_name
+  description 'Adds a button to hide / show the right sidebar'
+  url 'https://github.com/Smile-SA/' + plugin_name
+  version '1.0.3'
   requires_redmine :version_or_higher => '1.2.1'
 
   #Plugin home page
-  settings :default => HashWithIndifferentAccess.new(), :partial => 'settings/redmine_smile_togglesidebar'
+  settings :default => HashWithIndifferentAccess.new(), :partial => 'settings/' + plugin_name
 end
 
 
@@ -35,7 +37,7 @@ if !defined?(rails_dispatcher)
   end
 end
 
-this_plugin = Redmine::Plugin::find('redmine_smile_togglesidebar')
+this_plugin = Redmine::Plugin::find(plugin_name)
 plugin_version = '?.?'
 if this_plugin
   plugin_version = this_plugin.version
@@ -43,8 +45,7 @@ end
 
 
 rails_dispatcher.to_prepare do
-  ::Rails.logger.info "o=>\\__ redmine_smile_togglesidebar V#{plugin_version}"
-#  require_dependency 'issue'
+  ::Rails.logger.info "o=>\\__ #{plugin_name} V#{plugin_version}"
 
   #######################
   # **** Controllers ****
@@ -56,5 +57,6 @@ rails_dispatcher.to_prepare do
     # ApplicationHelper is a module
     ApplicationHelper.send(:extend, Smile::Helpers::ApplicationOverride::ToggleSidebar)
   end
+
   ::Rails.logger.info 'o=>/--'
 end
