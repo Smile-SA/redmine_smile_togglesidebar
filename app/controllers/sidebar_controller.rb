@@ -1,20 +1,20 @@
 #
-# For the Smile Redmine plugin
+# For the Smile Toggle Sidebar Redmine plugin
 # 2012
 #
 class SidebarController < ApplicationController
   unloadable
 
-  # Smile specific 2013 Change #26860 Bouton + / - pour cacher le bandeau de droite
   def toggle
-    original_action_name = params[:original_action]
-    original_controller_name = params[:original_controller]
+    original_session_name_show_sidebar = session_name_show_sidebar(
+      params[:original_controller], params[:original_action]
+      )
+    original_show_sidebar = session[original_session_name_show_sidebar]
+    # If not set in session, set to show as default behaviour
+    original_show_sidebar = true if original_show_sidebar.nil?
 
-    _session_name_show_sidebar = session_name_show_sidebar(original_controller_name, original_action_name)
-    show_sidebar = session[_session_name_show_sidebar]
-    show_sidebar = true if show_sidebar.nil?
-
-    session[_session_name_show_sidebar] = !show_sidebar
+    # Toggle Sidebar show state in session
+    session[original_session_name_show_sidebar] = !original_show_sidebar
 
     respond_to do |format|
       format.js {
@@ -26,7 +26,7 @@ class SidebarController < ApplicationController
 
 private
 
-  # Smile specific 2013 Change #26860 Bouton + / - pour cacher le bandeau de droite
+  # TODO : remove duplication with the same method in application_helper
   def session_name_show_sidebar(p_controller_name, p_action_name)
     p_controller_name + '_' + p_action_name + '_show_sidebar'
   end
