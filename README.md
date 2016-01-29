@@ -17,13 +17,13 @@ It stores a session cookie for each controller and action, to memorize the state
 - As there is no hook at the beginning of the body layout, we use the following trick : the button is inserted just before the flash messages (even if no message)
 - There are not **yet** tests on this feature
 - Fixed an issue with https when ssl managed by a front proxy (request.ssl? does not work)
+- Full tests have been added
 
 ### TODO
 
 - remove duplication of **session_name_show_sidebar** method
 - Ask JPL a new hook at the beginning of the layout body
 - Implement a cross-session cookie version ?
-- Add tests
 - finish refresh sidebar state on focus
 
 Enjoy !
