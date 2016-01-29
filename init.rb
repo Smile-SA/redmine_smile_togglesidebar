@@ -13,7 +13,7 @@ Redmine::Plugin.register plugin_name.to_sym do
   author_url 'mailto:Jerome BATAILLE <redmine-support@smile.fr>?subject=' + plugin_name
   description 'Adds a button to hide / show the right sidebar'
   url 'https://github.com/Smile-SA/' + plugin_name
-  version '1.0.3'
+  version '1.0.4'
   requires_redmine :version_or_higher => '1.2.1'
 
   #Plugin home page
