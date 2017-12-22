@@ -89,7 +89,7 @@ module Smile
             def image_toggle_sidebar(p_show_sidebar)
               if ! defined?(@@image_toggle_sidebar_true)
                 @@image_toggle_sidebar_true = '/plugin_assets/redmine_smile_togglesidebar/images/'
-                @@image_toggle_sidebar_false = '/plugin_assets/redmine_smile_togglesidebar/images/'
+                @@image_toggle_sidebar_false = @@image_toggle_sidebar_true
                 @@image_toggle_sidebar_true += 'maximize.png'
                 @@image_toggle_sidebar_false += 'minimize.png'
               end
