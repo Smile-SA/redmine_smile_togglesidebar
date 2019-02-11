@@ -18,6 +18,10 @@ It stores a session cookie for each controller and action, to memorize the state
 - Fixed an issue with https when ssl managed by a front proxy (request.ssl? does not work)
 - Full tests have been added
 - Compatible with Redmine 1.2.1 -> 4.0.1
+- Compatible with Relative root set with :
+```ruby
+Redmine::Utils::relative_url_root
+```
 
 ### TODO
 
