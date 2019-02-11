@@ -17,6 +17,7 @@ It stores a session cookie for each controller and action, to memorize the state
 - As there is no hook at the beginning of the body layout, we use the following trick : the button is inserted just before the flash messages (even if no message)
 - Fixed an issue with https when ssl managed by a front proxy (request.ssl? does not work)
 - Full tests have been added
+- Compatible with Redmine 1.2.1 -> 4.0.1
 
 ### TODO
 

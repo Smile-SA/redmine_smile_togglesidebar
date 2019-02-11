@@ -134,8 +134,11 @@ module Smile
           end # base.class_eval do
 
           base.instance_eval do
-            alias_method_chain :sidebar_content?, :toggle
-            alias_method_chain :render_flash_messages, :toggle
+            alias_method :sidebar_content_without_toggle?, :sidebar_content?
+            alias_method :sidebar_content?, :sidebar_content_with_toggle?
+
+            alias_method :render_flash_messages_without_toggle, :render_flash_messages
+            alias_method :render_flash_messages, :render_flash_messages_with_toggle
           end # base.instance_eval do
 
           Rails.logger.info "o=>  #{base.name}           instance_methods  #{base.instance_methods.select{|m| toggle_sidebar_instance_methods.include?(m)}.join(', ')} -- (Smile::Helpers::ApplicationOverride::ToggleSidebar)"
