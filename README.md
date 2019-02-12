@@ -32,4 +32,4 @@ Redmine::Utils::relative_url_root
 
 Enjoy !
 
-<kbd>![alt text](https://compteur-visites.ennder.fr/sites/29/token/github/image "Logo") <!-- .element height="10%" width="10%" --></kbd>
+<kbd>![alt text](https://compteur-visites.ennder.fr/sites/32/token/githubtsb/image "Logo") <!-- .element height="10%" width="10%" --></kbd>
