@@ -31,3 +31,5 @@ Redmine::Utils::relative_url_root
 - finish refresh sidebar state on focus
 
 Enjoy !
+
+<kbd>![alt text](https://compteur-visites.ennder.fr/sites/29/token/github/image "Logo") <!-- .element height="10%" width="10%" --></kbd>
