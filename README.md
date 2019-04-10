@@ -30,10 +30,6 @@ Redmine::Utils::relative_url_root
 - Implement a cross-session cookie version ?
 - finish refresh sidebar state on focus
 
-Enjoy !
-
-<kbd>![alt text](https://compteur-visites.ennder.fr/sites/32/token/githubtsb/image "Logo") <!-- .element height="10%" width="10%" --></kbd>
-
 ### INSTALLATION
 
 - With git
@@ -49,3 +45,7 @@ The same just copy the plugin archive in the *plugins* folder with the correct n
 
 - No plugin migration
 - New hide sidebar icon will automatically be available in any page where the *Sidebar is enabled*.
+
+Enjoy !
+
+<kbd>![alt text](https://compteur-visites.ennder.fr/sites/32/token/githubtsb/image "Logo") <!-- .element height="10%" width="10%" --></kbd>
