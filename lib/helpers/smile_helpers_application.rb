@@ -14,11 +14,11 @@ module Smile
       module ToggleSidebar
         def self.extended(base)
           toggle_sidebar_instance_methods = [
-            :button_toggle_sidebar, # 1/ New method
-            :session_name_show_sidebar, # 2/ New method
-            :image_toggle_sidebar, # 3/ New method
-            :sidebar_content_with_toggle?, # 4/ New method
-            :render_flash_messages_with_toggle, # 5/ New method
+            :button_toggle_sidebar,      # 1/ New method
+            :session_name_show_sidebar,  # 2/ New method
+            :image_toggle_sidebar,       # 3/ New method
+            :sidebar_content?,           # 4/ EXTENDED V4.0.0 OK
+            :render_flash_messages,      # 5/ EXTENDED V4.0.0 OK
           ]
 
           base.class_eval do
@@ -86,6 +86,7 @@ module Smile
             end
 
             # 3/ New method
+            #    Manages redmine is sub-folder
             def image_toggle_sidebar(p_show_sidebar)
               if ! defined?(@@image_toggle_sidebar_true)
                 @@image_toggle_sidebar_true = "#{Redmine::Utils::relative_url_root}/plugin_assets/redmine_smile_togglesidebar/images/"
@@ -101,7 +102,7 @@ module Smile
               end
             end
 
-            # 4/ Override sidebar_content?
+            # 4/ EXTENDED RM 4.0.0 OK
             #    To be able to hide the sidebar (change css class)
             def sidebar_content_with_toggle?
               show_sidebar = sidebar_content_without_toggle?
@@ -115,7 +116,7 @@ module Smile
               return show_sidebar && session_show_sidebar
             end
 
-            # 5/ Override render_flash_messages
+            # 5/ EXTENDED RM 4.0.0 OK
             #    Trick to have the button as the first html element in body
             def render_flash_messages_with_toggle
               flash_messages_rendered = render_flash_messages_without_toggle
@@ -125,13 +126,17 @@ module Smile
                   button_toggle_sidebar(false, false, false).html_safe +
                   '</div>'.html_safe +
                   flash_messages_rendered
-                  # TODO finish refresh sidebar state on focus
+                  # TODO finish refresh sidebar state on focus
                   # "<script>$(window).on('focus', function(){console.log('focus');});</script>".html_safe
               end
 
               flash_messages_rendered
             end
           end # base.class_eval do
+
+          trace_prefix         = "#{' ' * (base.name.length + 15)}  --->  "
+          module_name          = 'SM::H::ApplicationOverride::ToggleSidebar'
+          last_postfix         = "< (#{module_name})"
 
           base.instance_eval do
             alias_method :sidebar_content_without_toggle?, :sidebar_content?
@@ -141,11 +146,48 @@ module Smile
             alias_method :render_flash_messages, :render_flash_messages_with_toggle
           end # base.instance_eval do
 
-          Rails.logger.info "o=>  #{base.name}           instance_methods  #{base.instance_methods.select{|m| toggle_sidebar_instance_methods.include?(m)}.join(', ')} -- (Smile::Helpers::ApplicationOverride::ToggleSidebar)"
+          SmileTools.trace_override "#{base.name}         alias_method  sidebar_content?, :toggle " + last_postfix,
+            true,
+            :redmine_smile_togglesidebar
 
-          Rails.logger.info "o=>  #{base.name}           alias_meth_chain  :sidebar_content? :toggle -- (Smile::Helpers::ApplicationOverride::ToggleSidebar)"
+          SmileTools.trace_override "#{base.name}         alias_method  render_flash_messages, :toggle " + last_postfix,
+            true,
+            :redmine_smile_togglesidebar
 
-          Rails.logger.info "o=>  #{base.name}           alias_meth_chain  :render_flash_messages :toggle -- (Smile::Helpers::ApplicationOverride::ToggleSidebar)"
+
+          smile_instance_methods = base.instance_methods.select{|m|
+              toggle_sidebar_instance_methods.include?(m) &&
+                base.instance_method(m).source_location.first =~ SmileTools.regex_path_in_plugin(
+                  'lib/helpers/smile_helpers_application',
+                  :redmine_smile_togglesidebar
+                )
+            }
+
+          missing_instance_methods = toggle_sidebar_instance_methods.select{|m|
+            !smile_instance_methods.include?(m)
+          }
+
+          if missing_instance_methods.any?
+            trace_first_prefix = "#{base.name} MIS instance_methods  "
+          else
+            trace_first_prefix = "#{base.name}     instance_methods  "
+          end
+
+          SmileTools::trace_by_line(
+            (
+              missing_instance_methods.any? ?
+              missing_instance_methods :
+              smile_instance_methods
+            ),
+            trace_first_prefix,
+            trace_prefix,
+            last_postfix,
+            :redmine_smile_togglesidebar
+          )
+
+          if missing_instance_methods.any?
+            raise trace_first_prefix + missing_instance_methods.join(', ') + '  ' + last_postfix
+          end
         end # def self.extended
       end # module ToggleSidebar
     end # module ApplicationOverride

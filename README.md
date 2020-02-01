@@ -23,14 +23,14 @@ It stores a session cookie for each controller and action, to memorize the state
 Redmine::Utils::relative_url_root
 ```
 
-### TODO
+## TODO
 
 - remove duplication of **session_name_show_sidebar** method
 - Ask Jean-Philippe Lang a new hook at the beginning of the layout body
 - Implement a cross-session cookie version ?
 - finish refresh sidebar state on focus
 
-### INSTALLATION
+## INSTALLATION
 
 - With git
 ```shell
@@ -47,5 +47,11 @@ The same just copy the plugin archive in the *plugins* folder with the correct n
 - New hide sidebar icon will automatically be available in any page where the *Sidebar is enabled*.
 
 Enjoy !
+
+
+## Changelog
+
+* **V1.0.7** Overrides list in plugin settings page
+
 
 <kbd>![alt text](https://compteur-visites.ennder.fr/sites/32/token/githubtsb/image "Logo") <!-- .element height="10%" width="10%" --></kbd>

@@ -3,8 +3,6 @@
 # 2012
 #
 class SidebarController < ApplicationController
-  unloadable
-
   def toggle
     original_session_name_show_sidebar = session_name_show_sidebar(
       params[:original_controller], params[:original_action]
