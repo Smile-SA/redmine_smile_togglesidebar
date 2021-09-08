@@ -14,16 +14,20 @@ if (<%= show_sidebar %>) {
 <% if Rails::VERSION::MAJOR < 3 %>
   $('main').removeClassName('nosidebar');
   $('sidebar_view').src = image_toggle_sidebar_true;
+  $('main').trigger("resize");
 <% else %>
   $('#main').removeClass('nosidebar');
   $('#sidebar_view').attr('src', image_toggle_sidebar_true);
+  $('#main').trigger("resize");
 <% end %>
 } else {
 <% if Rails::VERSION::MAJOR < 3 %>
   $('main').addClassName('nosidebar');
   $('sidebar_view').src = image_toggle_sidebar_false;
+  $('main').trigger("resize");
 <% else %>
   $('#main').addClass('nosidebar');
   $('#sidebar_view').attr('src', image_toggle_sidebar_false);
+  $('#main').trigger("resize");
 <% end %>
 }
