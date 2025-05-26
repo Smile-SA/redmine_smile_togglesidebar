@@ -4,8 +4,8 @@
 # - 1/ module ::ToggleSidebar
 #      Bouton "+" to hide / show the sidebar
 
-module Smile
-  module Helpers
+module Helpers
+  module SmileHelpersApplication
     module ApplicationOverride
       # extend ActiveSupport::Concern
 

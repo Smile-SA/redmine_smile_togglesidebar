@@ -9,7 +9,7 @@ plugin_name = 'redmine_smile_togglesidebar'
 
 plugin_root = File.dirname(__FILE__)
 
-require plugin_root + '/lib/not_reloaded/smile_tools'
+require plugin_root + '/lib/smile_tools'
 
 Redmine::Plugin.register plugin_name.to_sym do
   name 'Redmine - Smile - Hide / Show Sidebar Button'
@@ -48,7 +48,7 @@ if this_plugin
 end
 
 
-rails_dispatcher.to_prepare do
+rails_dispatcher.after_initialize do
   ::Rails.logger.info "o=>\\__ #{plugin_name} V#{plugin_version}"
 
   #######################
@@ -56,10 +56,10 @@ rails_dispatcher.to_prepare do
 
   ###################
   # **** Helpers ****
-  unless ApplicationHelper.include? Smile::Helpers::ApplicationOverride::ToggleSidebar
+  unless ApplicationHelper.include? Helpers::SmileHelpersApplication::ApplicationOverride::ToggleSidebar
 #    Rails.logger.info "o=>ApplicationHelper.extend Smile::Helpers::ApplicationOverride::ToggleSidebar"
     # ApplicationHelper is a module
-    ApplicationHelper.send(:extend, Smile::Helpers::ApplicationOverride::ToggleSidebar)
+    ApplicationHelper.send(:extend, Helpers::SmileHelpersApplication::ApplicationOverride::ToggleSidebar)
   end
 
 
