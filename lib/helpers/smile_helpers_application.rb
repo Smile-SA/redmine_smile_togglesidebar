@@ -89,10 +89,16 @@ module Helpers
             #    Manages redmine is sub-folder
             def image_toggle_sidebar(p_show_sidebar)
               if ! defined?(@@image_toggle_sidebar_true)
-                @@image_toggle_sidebar_true = "#{Redmine::Utils::relative_url_root}/plugin_assets/redmine_smile_togglesidebar/images/"
-                @@image_toggle_sidebar_false = @@image_toggle_sidebar_true
-                @@image_toggle_sidebar_true += 'maximize.png'
-                @@image_toggle_sidebar_false += 'minimize.png'
+                if (Rails::VERSION::MAJOR < 6)
+                  @@image_toggle_sidebar_true = "#{Redmine::Utils::relative_url_root}/plugin_assets/redmine_smile_togglesidebar/images/"
+                  @@image_toggle_sidebar_false = @@image_toggle_sidebar_true
+                  @@image_toggle_sidebar_true += 'maximize.png'
+                  @@image_toggle_sidebar_false += 'minimize.png'
+                else
+                  asset_root = "plugin_assets/redmine_smile_togglesidebar/"
+                  @@image_toggle_sidebar_true = ActionController::Base.helpers.asset_path(asset_root + 'maximize.png')
+                  @@image_toggle_sidebar_false = ActionController::Base.helpers.asset_path(asset_root + 'minimize.png')
+                end
               end
 
               if p_show_sidebar
